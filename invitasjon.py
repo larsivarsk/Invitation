@@ -13,7 +13,7 @@ smtp_server = os.environ.get('SMTP_SERVER')
 smtp_port = int(os.environ.get('SMTP_PORT'))
 password = os.environ.get('PASSWORD')
 
-test = pd.read_csv('test.csv', sep=';')
+test = pd.read_csv('gjesteliste.csv', sep=';')
 
 # Dictionary with full name and email addresses
 guest_list = {}
@@ -33,7 +33,7 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
     msg = MIMEMultipart("related")
     msg['From'] = sender_email
     msg['To'] = email
-    msg['Subject'] = "Jeg fyller 70 år, og du er invitert til fest!"
+    msg['Subject'] = "Du er invitert til fest!"
 
     # HTML body
     html = f"""<!DOCTYPE html>
@@ -55,8 +55,7 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
         </td>
       </tr>
       </table>
-      <h3>Med vennlig hilsen <br/> Ivar</h3>
-      <p>PS: Her er en liste over mulige overnattingsplasser</p>
+      <p>Her er en liste over mulige overnattingsplasser:</p>
       <ul>
       <li><a href="https://www.firsthotels.no/hoteller/norge/lillehammer/first-hotel-breiseth/?gad_source=1&gclid=Cj0KCQiA8fW9BhC8ARIsACwHqYrRfYVOScw-TRpGb7McOKXPYiRBMDk84aBvPp6DY6A5TIuM3VmUoSIaAtpLEALw_wcB">Breiseth Hotell Lillehammer, tlf.: 95979434</a></li>
       <li><a href="https://birkebeineren.no/">Birkebeineren Hotel: tlf.: 61050080 (har også hytteutleie/leiligheter)</a></li>
@@ -77,8 +76,3 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
     server.sendmail(sender_email, email, msg.as_string())
 
 print("Alle invitasjoner er sendt!")
-
-
-# git commit -m 'message'
-# git remote add origin <url>
-# git push -u origin master
